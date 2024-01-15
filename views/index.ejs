@@ -1,0 +1,14 @@
+<%- include('../client/partials/head') %>
+
+ <%- include('../client/partials/navBar') %>
+
+<% if (showLogin) { %>
+    <%- include('../client/forms/login') %>
+<% } else if (showRegister) { %>
+    <%- include('../client/forms/register') %>
+<% } %>
+
+<!-- TESTING_IDENTIFIER -->  
+<%- include('../client/partials/footer') %>
+
+
