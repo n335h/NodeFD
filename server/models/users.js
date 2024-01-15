@@ -34,10 +34,14 @@ const userSchema = new mongoose.Schema({
 		// 	// default: uuidv4, are we asking for a predefined UUID or they register and are assigned one
 		// },
 	},
-	// is_admin: {
-	// 	type: Boolean,
-	// 	required: true,
-	// },
+	is_admin: {
+		type: Boolean,
+		required: true,
+	},
+	organisation: {
+		type: String,
+		required: false,
+	},
 });
 
 const User = mongoose.model('User', userSchema);
