@@ -26,7 +26,6 @@ const registerUser = async (req, res) => {
 					'Please provide an email and password',
 			});
 		}
-
 		const existingUser = await getUserByEmail(
 			email
 		);
@@ -52,6 +51,8 @@ const registerUser = async (req, res) => {
 					salt
 				),
 			},
+			is_admin: false,
+			organisation: '',
 			// is_admin: false, // You may set this based on your requirements
 		});
 

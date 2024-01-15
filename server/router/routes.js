@@ -65,7 +65,6 @@ router.get('/users/:email', async (req, res) => {
 
 router.post('/register', registerUser);
 
-// Login endpoint
 router.post('/login', loginUser);
 
 module.exports = router;

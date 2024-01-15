@@ -1,9 +1,10 @@
 <div class="flex flex-col items-center justify-center h-full bg-gray-100" id="userContent">
   <h2 class="text-2xl">Login</h2>
-  <form data-testid="loginForm" id="loginForm" action="/login" method="post" class="flex flex-col items-center bg-white p-8 rounded-md shadow-md mt-4">
+  <form data-testid="loginForm" id="loginForm" action="/login" method="post" class="flex flex-col items-center bg-white p-8 rounded-md shadow-md mt-4" enctype="application/json">
+
     <div class="flex flex-col items-start">
-      <label for="username">Username:</label>
-      <input placeholder="Username" title="username" type="text" name="username" required class="mt-2 p-2 border border-gray-300 rounded">
+      <label for="email">Email:</label>
+      <input placeholder="email" title="email" type="text" name="email" required class="mt-2 p-2 border border-gray-300 rounded">
     </div>
 
     <div class="flex flex-col items-start mt-4">
@@ -11,6 +12,7 @@
       <input title="password" type="password" name="password" required class="mt-2 p-2 border border-gray-300 rounded">
     </div>
 
-    <button class="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Login</button>
-  </form>
+    <button class="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Login</button>  </form>
+    
 </div>
+
