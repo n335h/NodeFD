@@ -1,12 +1,9 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-const {
-	registerUser,
-} = require('../controllers/registration');
-const {
-	loginUser,
-} = require('../controllers/login');
+
+const loginRouter = require('./auth/login/login');
+const registerRouter = require('./auth/register/register');
 
 const {
 	getUserByEmail,
@@ -34,22 +31,6 @@ router.get('/', (req, res) => {
 	}
 });
 
-// Get route for rendering the register form
-router.get('/register', (req, res) => {
-	res.render('index', {
-		showLogin: false,
-		showRegister: true,
-	});
-});
-
-// Get route for rendering the login form
-router.get('/login', (req, res) => {
-	res.render('index', {
-		showLogin: true,
-		showRegister: false,
-	});
-});
-
 router.get('/users/:email', async (req, res) => {
 	const email = req.params.email;
 
@@ -63,9 +44,8 @@ router.get('/users/:email', async (req, res) => {
 	}
 });
 
-router.post('/register', registerUser);
-
-router.post('/login', loginUser);
+router.use(loginRouter);
+router.use(registerRouter);
 
 module.exports = router;
 

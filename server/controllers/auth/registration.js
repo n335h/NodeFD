@@ -2,11 +2,11 @@ const express = require('express');
 const {
 	createUser,
 	getUserByEmail,
-} = require('../models/users');
+} = require('../../models/users');
 const {
 	generateSalt,
 	hashPassword,
-} = require('../helpers/authentication');
+} = require('../../helpers/argon2id/hashPassword');
 
 const registerUser = async (req, res) => {
 	try {
@@ -26,6 +26,28 @@ const registerUser = async (req, res) => {
 					'Please provide an email and password',
 			});
 		}
+		// first and last name validation
+		const nameRegex = /^[A-Za-z-]{2,100}$/;
+		if (
+			!nameRegex.test(first_name) ||
+			!nameRegex.test(last_name)
+		) {
+			return res.status(400).json({
+				status: 'fail',
+				error:
+					'Invalid first_name or last_name format',
+			});
+		}
+
+		const emailRegex =
+			/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(email)) {
+			return res.status(400).json({
+				status: 'fail',
+				error: 'Invalid Email',
+			});
+		}
+
 		const existingUser = await getUserByEmail(
 			email
 		);

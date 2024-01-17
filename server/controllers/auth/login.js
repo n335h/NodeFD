@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const {
 	getUserByEmail,
-} = require('../models/users');
+} = require('../../models/users');
 const {
 	comparePasswords,
-} = require('../helpers/authentication');
+} = require('../../helpers/argon2id/comparePasswords');
 
 // Login endpoint
 const loginUser = async (req, res) => {
