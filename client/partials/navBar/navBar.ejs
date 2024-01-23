@@ -1,7 +1,7 @@
 
 
 <nav data-testid="navBar" class="flex items-center justify-end p-4 bg-zinc-500">
-  <div id="navBar" class="text-white flex space-x-4">
+  <div id="navBar" class="text-white justify-evenly flex space-x-4">
     <% if (user) { %>
       <!-- Display content for authenticated user -->
      <h1 class="text-black"> Welcome, <%= user.email %>! </h1> <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded"  href="/logout">Logout</a>

@@ -65,6 +65,7 @@ router.get('/dashboard', (req, res) => {
 	}
 });
 
+
 module.exports = router;
 
 // Post route for registering a new user
