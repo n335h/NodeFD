@@ -9,7 +9,7 @@ const connectDB = async () => {
 			process.env.MONGO_URL,
 			{}
 		);
-		console.log('MongoDB Connected');
+		
 	} catch (error) {
 		console.error(
 			'Error connecting to MongoDB:',

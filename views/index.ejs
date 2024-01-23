@@ -1,12 +1,14 @@
 <%- include('../client/partials/head') %>
 
- <%- include('../client/partials/navBar') %>
+<%- include('../client/partials/navBar/navBar',  { user: user }) %>
 
 <% if (showLogin) { %>
     <%- include('../client/forms/login') %>
 <% } else if (showRegister) { %>
     <%- include('../client/forms/register') %>
-<% } %>
+<% } else if (showDashboard) { %>
+    <%- include('../client/pages/dashboard') %>
+    <% } %>
 
 <!-- TESTING_IDENTIFIER -->  
 <%- include('../client/partials/footer') %>

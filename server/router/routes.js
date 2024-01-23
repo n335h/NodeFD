@@ -2,8 +2,15 @@ const express = require('express');
 const path = require('path');
 const router = express.Router();
 
+const {
+	verifyJWT,
+} = require('../helpers/jwtGenVer');
+
 const loginRouter = require('./auth/login/login');
 const registerRouter = require('./auth/register/register');
+// const {
+// 	login,
+// } = require('../controllers/auth/login/login');
 
 const {
 	getUserByEmail,
@@ -11,12 +18,6 @@ const {
 const {
 	comparePasswords,
 } = require('../helpers/authentication');
-
-// const {
-// 	authentication,
-// } = require('./authentication');
-
-//// will need to import controllers once they are created
 
 // Rendering the index page with the login form by default on server connect
 router.get('/', (req, res) => {
@@ -41,6 +42,24 @@ router.get('/users/:email', async (req, res) => {
 		res
 			.status(500)
 			.json({ error: error.message });
+	}
+});
+
+router.use(verifyJWT);
+
+//dashboard route
+router.get('/dashboard', (req, res) => {
+	try {
+		res.render('index', {
+			showLogin: false,
+			showRegister: false,
+			showDashboard: true,
+			user: req.user,
+		});
+		console.log(req.user);
+	} catch (error) {
+		console.error(error);
+		res.status(500).send('Internal Server Error');
 	}
 });
 

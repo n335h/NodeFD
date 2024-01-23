@@ -22,4 +22,11 @@ staticPaths.use(
 	)
 );
 
+staticPaths.use(
+	'/dashboard',
+	express.static(
+		path.join(__dirname, 'pages/dashboard')
+	)
+);
+
 module.exports = staticPaths;

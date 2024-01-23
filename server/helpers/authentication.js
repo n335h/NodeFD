@@ -13,12 +13,7 @@ const hashPassword = async (password, salt) => {
 			password + salt, // Concatenate password and salt
 			{ type: argon2.argon2i } // Specify the type if needed
 		);
-		console.log(
-			'Hashed Password:',
-			hashedPassword
-		);
-		console.log('Salt:', salt);
-		console.log('password:', password);
+
 		return hashedPassword;
 	} catch (error) {
 		console.error(
@@ -42,28 +37,9 @@ const comparePasswords = async (
 			{ type: argon2.argon2i }
 		);
 
-		console.log(
-			'Provided Password:',
-			userPassword
-		);
-		console.log(
-			'Stored Hashed Password:',
-			storedHashedPassword
-		);
-		console.log('Stored Salt:', storedSalt);
-		console.log(
-			'Concatenated Password:',
-			concatenatedPassword
-		);
-
 		const isPasswordValid = await argon2.verify(
 			hashedPassword,
 			concatenatedPassword
-		);
-
-		console.log(
-			'Password Valid:',
-			isPasswordValid
 		);
 
 		return isPasswordValid;

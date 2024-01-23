@@ -15,29 +15,17 @@ const comparePasswords = async (
 			{ type: argon2.argon2i }
 		);
 
-		console.log(
-			'Provided Password:',
-			userPassword
-		);
-		console.log(
-			'Stored Hashed Password:',
-			storedHashedPassword
-		);
-		console.log('Stored Salt:', storedSalt);
-		console.log(
-			'Concatenated Password:',
-			concatenatedPassword
-		);
+		
+		
+		
+		
 
 		const isPasswordValid = await argon2.verify(
 			hashedPassword,
 			concatenatedPassword
 		);
 
-		console.log(
-			'Password Valid:',
-			isPasswordValid
-		);
+		
 
 		return isPasswordValid;
 	} catch (error) {

@@ -6,6 +6,8 @@ const {
 const {
 	comparePasswords,
 } = require('../../helpers/argon2id/comparePasswords');
+const generateJWT =
+	require('../../helpers/jwtGenVer').generateJWT;
 
 // Login endpoint
 const loginUser = async (req, res) => {
@@ -48,14 +50,19 @@ const loginUser = async (req, res) => {
 			);
 
 		if (isPasswordValid) {
-			// Passwords match, consider it a successful login
-			console.log(
-				`User ${email} successfully logged in.`
-			);
-			res.status(200).json({
+			// Generate JWT
+			const token = generateJWT(user);
+			console.log({
 				status: 'success',
 				message: 'Login successful',
+				token: token,
 			});
+			res
+				.header(
+					'Authorization',
+					`Bearer ${token}`
+				)
+				.redirect('/dashboard');
 		} else {
 			// Passwords don't match
 			console.error(

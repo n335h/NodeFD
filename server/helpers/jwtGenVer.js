@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
 
-const jwtSecret = 'hello';
+const secretKey = 'hi';
 
 const generateJWT = (user) => {
 	const payload = {
+		userId: user._id,
 		email: user.email,
 	};
 
@@ -11,17 +12,30 @@ const generateJWT = (user) => {
 		expiresIn: '1h',
 	};
 
-	return jwt.sign(payload, jwtSecret, options);
+	return jwt.sign(payload, secretKey, options);
 };
 
-const verifyToken = (token) => {
-	try {
-		const decoded = jwt.verify(token, jwtSecret);
-		return decoded;
-	} catch (error) {
-		console.log(error);
-		return false;
+const verifyJWT = (req, res, next) => {
+	console.log(req.headers);
+	const token = req.headers.cookie.split('=')[1];
+	console.log(token);
+	if (!token) {
+		return res.status(401).json({
+			message: 'Unauthorized: Missing token',
+		});
 	}
+
+	jwt.verify(token, secretKey, (err, decoded) => {
+		if (err) {
+			return res.status(401).json({
+				message: 'Unauthorized: Invalid token',
+			});
+		}
+
+		// Attach the decoded user information to the request object
+		req.user = decoded;
+		next();
+	});
 };
 
-module.exports = { generateJWT, verifyToken };
+module.exports = { generateJWT, verifyJWT };

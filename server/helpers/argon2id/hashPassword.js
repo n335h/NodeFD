@@ -13,12 +13,9 @@ const hashPassword = async (password, salt) => {
 			password + salt, // Concatenate password and salt
 			{ type: argon2.argon2i } // Specify the type if needed
 		);
-		console.log(
-			'Hashed Password:',
-			hashedPassword
-		);
-		console.log('Salt:', salt);
-		console.log('password:', password);
+		
+		
+		
 		return hashedPassword;
 	} catch (error) {
 		console.error(

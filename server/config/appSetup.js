@@ -4,13 +4,16 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const cors = require('cors');
+const helmet = require('helmet');
 
 const app = express();
 const router = require('../router/routes');
 const staticPaths = require('../config/staticPaths/staticPaths');
 
 require('dotenv').config();
+app.use(cookieParser());
 
+app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(compression());
