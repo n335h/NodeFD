@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
+// const extractInfo = require('../middleware/extractInfo');
 
 const {
 	verifyJWT,
@@ -44,6 +45,8 @@ router.get('/users/:email', async (req, res) => {
 			.json({ error: error.message });
 	}
 });
+router.use(loginRouter);
+router.use(registerRouter);
 
 router.use(verifyJWT);
 
@@ -56,15 +59,11 @@ router.get('/dashboard', (req, res) => {
 			showDashboard: true,
 			user: req.user,
 		});
-		console.log(req.user);
 	} catch (error) {
 		console.error(error);
 		res.status(500).send('Internal Server Error');
 	}
 });
-
-router.use(loginRouter);
-router.use(registerRouter);
 
 module.exports = router;
 

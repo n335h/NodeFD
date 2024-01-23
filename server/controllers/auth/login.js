@@ -50,29 +50,21 @@ const loginUser = async (req, res) => {
 			);
 
 		if (isPasswordValid) {
-			// Generate JWT
 			const token = generateJWT(user);
-			console.log({
-				status: 'success',
-				message: 'Login successful',
-				token: token,
+			const isSecure =
+				req.secure ||
+				req.headers['x-forwarded-proto'] ===
+					'https';
+
+			res.cookie('token', token, {
+				httpOnly: true,
+				secure: isSecure,
+				maxAge: 3600000, // 1 hour expiration
 			});
-			res
-				.header(
-					'Authorization',
-					`Bearer ${token}`
-				)
-				.redirect('/dashboard');
+
+			res.redirect('/dashboard');
 		} else {
-			// Passwords don't match
-			console.error(
-				`Authentication failed for user ${email}: Incorrect password.`
-			);
-			res.status(401).json({
-				status: 'fail',
-				error:
-					'Authentication failed. Incorrect password.',
-			});
+			// ... handle incorrect password ...
 		}
 	} catch (error) {
 		console.error(
@@ -81,7 +73,8 @@ const loginUser = async (req, res) => {
 		);
 		res.status(500).json({
 			status: 'error',
-			error: 'Internal Server Error',
+			error:
+				'An error occurred, please try again later.',
 		});
 	}
 };

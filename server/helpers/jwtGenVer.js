@@ -16,15 +16,15 @@ const generateJWT = (user) => {
 };
 
 const verifyJWT = (req, res, next) => {
-	console.log(req.headers);
-	const token = req.headers.cookie.split('=')[1];
-	console.log(token);
+	const token = req.cookies.token; // Assuming the cookie name is 'token'
+
 	if (!token) {
 		return res.status(401).json({
-			message: 'Unauthorized: Missing token',
+			message: 'Unauthorized: No token provided',
 		});
 	}
 
+	// Verify the JWT token
 	jwt.verify(token, secretKey, (err, decoded) => {
 		if (err) {
 			return res.status(401).json({
