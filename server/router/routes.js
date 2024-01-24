@@ -6,6 +6,7 @@ const {
 const loginRouter = require('./auth/login/login');
 const registerRouter = require('./auth/register/register');
 const dashboardRouter = require('./dashboard/dashboard');
+const logOutRouter = require('./auth/logout');
 
 const {
 	getUserByEmail,
@@ -43,24 +44,9 @@ router.use(loginRouter);
 router.use(registerRouter);
 
 // Authorised Routers
+router.use(verifyJWT);
 router.use(dashboardRouter);
-
-// router.use(verifyJWT);
-
-// //dashboard route
-// router.get('/dashboard', (req, res) => {
-// 	try {
-// 		res.render('index', {
-// 			showLogin: false,
-// 			showRegister: false,
-// 			showDashboard: true,
-// 			user: req.user,
-// 		});
-// 	} catch (error) {
-// 		console.error(error);
-// 		res.status(500).send('Internal Server Error');
-// 	}
-// });
+router.use(logOutRouter);
 
 module.exports = router;
 
