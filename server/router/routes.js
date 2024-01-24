@@ -1,24 +1,18 @@
-const express = require('express');
-const path = require('path');
-const router = express.Router();
-// const extractInfo = require('../middleware/extractInfo');
-
+const router = require('express').Router();
 const {
 	verifyJWT,
-} = require('../helpers/jwtGenVer');
+} = require('../helpers/auth/jwtGenVer');
 
 const loginRouter = require('./auth/login/login');
 const registerRouter = require('./auth/register/register');
-// const {
-// 	login,
-// } = require('../controllers/auth/login/login');
+const dashboardRouter = require('./dashboard/dashboard');
 
 const {
 	getUserByEmail,
 } = require('../models/users');
 const {
 	comparePasswords,
-} = require('../helpers/authentication');
+} = require('../helpers/auth/passwordAuth');
 
 // Rendering the index page with the login form by default on server connect
 router.get('/', (req, res) => {
@@ -48,23 +42,25 @@ router.get('/users/:email', async (req, res) => {
 router.use(loginRouter);
 router.use(registerRouter);
 
-router.use(verifyJWT);
+// Authorised Routers
+router.use(dashboardRouter);
 
-//dashboard route
-router.get('/dashboard', (req, res) => {
-	try {
-		res.render('index', {
-			showLogin: false,
-			showRegister: false,
-			showDashboard: true,
-			user: req.user,
-		});
-	} catch (error) {
-		console.error(error);
-		res.status(500).send('Internal Server Error');
-	}
-});
+// router.use(verifyJWT);
 
+// //dashboard route
+// router.get('/dashboard', (req, res) => {
+// 	try {
+// 		res.render('index', {
+// 			showLogin: false,
+// 			showRegister: false,
+// 			showDashboard: true,
+// 			user: req.user,
+// 		});
+// 	} catch (error) {
+// 		console.error(error);
+// 		res.status(500).send('Internal Server Error');
+// 	}
+// });
 
 module.exports = router;
 

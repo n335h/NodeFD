@@ -7,7 +7,8 @@ const {
 	comparePasswords,
 } = require('../../helpers/argon2id/comparePasswords');
 const generateJWT =
-	require('../../helpers/jwtGenVer').generateJWT;
+	require('../../helpers/auth/jwtGenVer').generateJWT;
+// const getUserById = require('../../controllers/user/getUserById');
 
 // Login endpoint
 const loginUser = async (req, res) => {
@@ -59,12 +60,15 @@ const loginUser = async (req, res) => {
 			res.cookie('token', token, {
 				httpOnly: true,
 				secure: isSecure,
-				maxAge: 3600000, // 1 hour expiration
+				maxAge: 1800000, // 30 min expiration
 			});
 
 			res.redirect('/dashboard');
 		} else {
 			// ... handle incorrect password ...
+			console.error(
+				'Authentication failed: Incorrect password'
+			);
 		}
 	} catch (error) {
 		console.error(

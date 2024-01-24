@@ -67,5 +67,7 @@ const createUser = async (values) => {
 
 const getUserByEmail = async (email) =>
 	User.findOne({ email });
+const getUserById = async (userId) =>
+	User.findById(userId);
 
 module.exports = { createUser, getUserByEmail };

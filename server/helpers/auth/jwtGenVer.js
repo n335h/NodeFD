@@ -9,7 +9,7 @@ const generateJWT = (user) => {
 	};
 
 	const options = {
-		expiresIn: '1h',
+		expiresIn: '30min',
 	};
 
 	return jwt.sign(payload, secretKey, options);
