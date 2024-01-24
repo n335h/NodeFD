@@ -34,6 +34,7 @@ const verifyJWT = (req, res, next) => {
 
 		// Attach the decoded user information to the request object
 		req.user = decoded;
+		console.log('Decoded user:', req.user);
 		next();
 	});
 };

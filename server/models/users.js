@@ -70,4 +70,8 @@ const getUserByEmail = async (email) =>
 const getUserById = async (userId) =>
 	User.findById(userId);
 
-module.exports = { createUser, getUserByEmail };
+module.exports = {
+	createUser,
+	getUserByEmail,
+	getUserById,
+};
