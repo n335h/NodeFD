@@ -1,0 +1,17 @@
+
+      
+                <h2 class="text-xl font-semibold mb-2">Your Files</h2>
+                <div id="fileList" class="border border-gray-300 rounded p-2">
+                    <% if (files.length === 0) { %>
+                        <p>No files uploaded yet.</p>
+                    <% } else { %>
+                        <ul>
+                            <% files.forEach(file => { %>
+                                <li>
+                                    <%= file.fileName %>
+                                    <a href="/download/<%= file._id.toString() %>" download="<%= file.fileName %>">Download</a>
+                                </li>
+                            <% }); %>
+                        </ul>
+                    <% } %>
+                </div>

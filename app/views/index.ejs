@@ -1,0 +1,17 @@
+<%- include('../views/partials/head') %>
+
+<%- include('../views/navBar/navBar',  { user: user }) %>
+
+<% if (showLogin) { %>
+    <%- include('../views/forms/login') %>
+<% } else if (showRegister) { %>
+    <%- include('../views/forms/register') %>
+<% } else if (showDashboard) { %>
+    <%- include('../views/pages/dashboard') %>
+    <% } %>
+
+<!-- TESTING_IDENTIFIER -->  
+<%- include('../views/partials/footer') %>
+
+
+<% var user = typeof user !== 'undefined' ? user : {}; %>

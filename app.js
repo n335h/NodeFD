@@ -1,15 +1,15 @@
 // app.js
 const http = require('http');
 const express = require('express');
-const appSetup = require('./server/config/appSetup');
-const connectDB = require('./server/config/mongoDb/mongoDb');
-const routes = require('./server/router/routes');
+const appSetup = require('./app/config/appSetup');
+const connectDB = require('./app/config/mongoDb/mongoDb');
+const routes = require('./app/router/routes');
 const morgan = require('morgan');
 
 const {
 	processFiles,
 	removeConsoleLogs,
-} = require('./server/helpers/cleanUp/removeConsoles');
+} = require('./app/controllers/removeConsoles');
 
 require('dotenv').config();
 
@@ -24,10 +24,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Run the script to remove console logs only once on server start in production
 if (process.env.NODE_ENV === 'cleanup') {
-	const projectDirectories = [
-		'../NodeFD/client',
-		'../NodeFD/server',
-	];
+	const projectDirectories = ['../NodeFD/app'];
 	projectDirectories.forEach(
 		(projectDirectory) => {
 			processFiles(
