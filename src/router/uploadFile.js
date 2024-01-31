@@ -4,6 +4,7 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const { SingleFile } = require('../models/file');
 const { Readable } = require('stream');
+const UUID = require('uuid');
 
 const upload = multer(); // No need for a destination as we won't save to the local file system
 const router = express.Router();
@@ -21,6 +22,7 @@ router.post(
 			// Save metadata to MongoDB using Mongoose model
 			const newFile = new SingleFile({
 				userId: req.user.userId,
+				file_id: UUID.v4(),
 				fileSize: req.file.size,
 				fileType: req.file.mimetype,
 				fileName: req.file.originalname,
@@ -35,7 +37,7 @@ router.post(
 			// Handle GridFSBucket creation after establishing MongoDB connection
 			const bucket =
 				new mongoose.mongo.GridFSBucket(db, {
-					bucketName: 'files',
+					bucketName: 'singlefiles',
 				});
 
 			// Create a readable stream from the buffer of the uploaded file

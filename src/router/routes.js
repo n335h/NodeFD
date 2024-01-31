@@ -7,6 +7,7 @@ const loginRouter = require('./login');
 const registerRouter = require('./register');
 const dashboardRouter = require('./dashboard');
 const logOutRouter = require('./logout');
+const downloadRouter = require('./downloadFile');
 // const downloadRouter = require('../controllers/download');
 
 const {
@@ -14,7 +15,7 @@ const {
 } = require('../models/users');
 const {
 	comparePasswords,
-} = require('../controllers/comparePasswords');
+} = require('../controllers/passwordUtils');
 
 // Rendering the index page with the login form by default on server connect
 router.get('/', (req, res) => {
@@ -49,6 +50,7 @@ router.use(verifyJWT);
 router.use(dashboardRouter);
 router.use(logOutRouter);
 router.use(uploadRouter);
+router.use(downloadRouter);
 
 // router.use('/download', downloadRouter);
 
