@@ -6,7 +6,7 @@ const {
 const {
 	generateSalt,
 	hashPassword,
-} = require('./hashPassword');
+} = require('./passwordUtils');
 
 const registerUser = async (req, res) => {
 	try {

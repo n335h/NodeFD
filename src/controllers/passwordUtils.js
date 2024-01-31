@@ -10,19 +10,20 @@ const generateSalt = () => {
 const hashPassword = async (password, salt) => {
 	try {
 		const hashedPassword = await argon2.hash(
-			password + salt, // Concatenate password and salt
-			{ type: argon2.argon2i } // Specify the type if needed
+			password + salt,
+			{ type: argon2.argon2i }
 		);
 
 		return hashedPassword;
 	} catch (error) {
 		console.error(
-			'Error hashing password: ',
+			'Error hashing password:',
 			error
 		);
 		throw error;
 	}
 };
+
 const comparePasswords = async (
 	userPassword,
 	storedHashedPassword,

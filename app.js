@@ -1,15 +1,15 @@
 // app.js
 const http = require('http');
 const express = require('express');
-const appSetup = require('./app/config/appSetup');
-const connectDB = require('./app/config/mongoDb/mongoDb');
-const routes = require('./app/router/routes');
+const appSetup = require('./src/config/appSetup');
+const connectDB = require('./src/config/mongoDb/mongoDb');
+const routes = require('./src/router/routes');
 const morgan = require('morgan');
 
 const {
 	processFiles,
 	removeConsoleLogs,
-} = require('./app/controllers/removeConsoles');
+} = require('./src/controllers/removeConsoles');
 
 require('dotenv').config();
 

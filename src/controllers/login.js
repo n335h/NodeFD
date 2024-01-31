@@ -5,7 +5,7 @@ const {
 } = require('../models/users');
 const {
 	comparePasswords,
-} = require('../controllers/comparePasswords');
+} = require('./passwordUtils');
 const generateJWT =
 	require('../controllers/jwtGenVer').generateJWT;
 // const getUserById = require('../../controllers/user/getUserById');
