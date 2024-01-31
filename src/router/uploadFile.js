@@ -1,6 +1,5 @@
 const express = require('express');
 const multer = require('multer');
-const fs = require('fs');
 const mongoose = require('mongoose');
 const { SingleFile } = require('../models/file');
 const { Readable } = require('stream');

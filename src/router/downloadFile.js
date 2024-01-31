@@ -15,14 +15,14 @@ router.get(
 				bucketName: 'singlefiles',
 			});
 
-			const fileId = req.params.file_id;
+			const fileId = req.params.fileId;
 			console.log(fileId);
 			console.log(bucket);
 
-			// If using the mongodb package directly
+			// // If using the mongodb package directly
 			const objectId = new ObjectId(fileId);
 
-			// If using mongoose
+			// // If using mongoose
 			// const objectId = mongoose.Types.ObjectId(fileId);
 
 			console.log(objectId);

@@ -31,6 +31,7 @@ router.get('/dashboard', async (req, res) => {
 			user: user,
 			files: files, // Set the files variable
 		});
+		console.log(files);
 	} catch (error) {
 		console.error(error);
 		res.status(500).send('Internal Server Error');
