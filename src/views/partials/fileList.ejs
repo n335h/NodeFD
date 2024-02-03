@@ -7,7 +7,7 @@
             <% files.forEach(file => { %>
                 <li>
                     <span><%= file.fileName %></span>
-                    <a href="/download/<%= file._id %>" download="<%= file.fileName %>">
+                    <a href="/download/<%= file.id %>" download="<%= file.fileName %>">
                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
                             Download
                         </button>

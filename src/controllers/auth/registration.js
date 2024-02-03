@@ -2,7 +2,7 @@ const express = require('express');
 const {
 	createUser,
 	getUserByEmail,
-} = require('../models/users');
+} = require('../userControllers');
 const {
 	generateSalt,
 	hashPassword,

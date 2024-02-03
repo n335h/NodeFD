@@ -24,6 +24,4 @@ mongoose.connection.on('connected', () => {
 	console.log(bucket);
 });
 
-
-
 module.exports = connectDB;

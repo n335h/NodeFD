@@ -1,9 +1,10 @@
 const express = require('express');
 const multer = require('multer');
 const mongoose = require('mongoose');
-const { SingleFile } = require('../models/file');
+const {
+	SingleFile,
+} = require('../../models/file');
 const { Readable } = require('stream');
-const UUID = require('uuid');
 
 const upload = multer(); // No need for a destination as we won't save to the local file system
 const router = express.Router();
@@ -21,11 +22,11 @@ router.post(
 			// Save metadata to MongoDB using Mongoose model
 			const newFile = new SingleFile({
 				userId: req.user.userId,
-				file_id: UUID.v4(),
 				fileSize: req.file.size,
 				fileType: req.file.mimetype,
 				fileName: req.file.originalname,
 				uploadDate: Date.now(),
+				gridFsFileId: undefined,
 			});
 
 			await newFile.save();
@@ -44,7 +45,12 @@ router.post(
 			bufferStream.push(req.file.buffer);
 			bufferStream.push(null);
 
-			// Create an upload stream using GridFSBucket
+			// Update gridFsFileId property in SingleFile document
+			newFile.gridFsFileId =
+				new mongoose.Types.ObjectId(); // Generate a new ObjectId
+			// Save the SingleFile document to MongoDB
+			await newFile.save();
+
 			const uploadStream =
 				bucket.openUploadStream(
 					newFile._id.toHexString(),
@@ -52,10 +58,15 @@ router.post(
 						chunkSizeBytes: 1024 * 1024, // Adjust the chunk size as needed
 						metadata: {
 							userId: req.user.userId,
+							fileName: req.file.originalname,
 							fileType: req.file.mimetype,
+							gridFsFileId: newFile.gridFsFileId,
 						},
 					}
 				);
+
+			// Save the SingleFile document to MongoDB
+			await newFile.save();
 
 			// Pipe the buffer stream into the upload stream
 			bufferStream.pipe(uploadStream);

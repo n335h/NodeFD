@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
 	getUserByEmail,
-} = require('../models/users');
+} = require('../userControllers');
 const {
 	comparePasswords,
 } = require('./passwordUtils');

@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const verifyJWT =
-	require('../controllers/jwtGenVer').verifyJWT;
+	require('../controllers/auth/jwtGenVer').verifyJWT;
 const {
 	getUserById,
-} = require('../models/users'); // Import getUserById
+} = require('../controllers/userControllers'); // Import getUserById
 const { getFiles } = require('../models/file'); // Import getFiles
 
 router.use(verifyJWT);

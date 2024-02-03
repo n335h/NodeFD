@@ -1,13 +1,14 @@
 const router = require('express').Router();
 const {
 	verifyJWT,
-} = require('../controllers/jwtGenVer');
-const uploadRouter = require('./uploadFile');
-const loginRouter = require('./login');
-const registerRouter = require('./register');
+} = require('../controllers/auth/jwtGenVer');
+const uploadRouter = require('../router/files/uploadFile');
+const loginRouter = require('../router/auth/login');
+const registerRouter = require('../router/auth/register');
 const dashboardRouter = require('./dashboard');
-const logOutRouter = require('./logout');
-const downloadRouter = require('./downloadFile');
+const logOutRouter = require('../router/auth/logout');
+const downloadRouter = require('../router/files/downloadFile');
+const userRouter = require('../router/userRoutes');
 // const downloadRouter = require('../controllers/download');
 
 const {
@@ -15,7 +16,7 @@ const {
 } = require('../models/users');
 const {
 	comparePasswords,
-} = require('../controllers/passwordUtils');
+} = require('../controllers/auth/passwordUtils');
 
 // Rendering the index page with the login form by default on server connect
 router.get('/', (req, res) => {
@@ -50,6 +51,7 @@ router.use(verifyJWT);
 router.use(dashboardRouter);
 router.use(logOutRouter);
 router.use(uploadRouter);
+router.use(userRouter);
 router.use(downloadRouter);
 
 // router.use('/download', downloadRouter);

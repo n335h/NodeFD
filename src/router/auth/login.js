@@ -4,7 +4,7 @@ const router = express.Router();
 
 const {
 	loginUser,
-} = require('../controllers/login');
+} = require('../../controllers/auth/login');
 
 // Get route for rendering the login form
 router.get('/login', (req, res) => {
