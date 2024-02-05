@@ -9,7 +9,7 @@ app.set('view engine', 'ejs');
 
 app.set(
 	'views',
-	path.join(__dirname, '../../views') // used to create an absolute path by joining the current directory (__dirname) with a relative path ('../views').
+	path.join(__dirname, '../views') // used to create an absolute path by joining the current directory (__dirname) with a relative path ('../views').
 );
 
 app.use(

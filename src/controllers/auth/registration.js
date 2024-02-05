@@ -75,12 +75,8 @@ const registerUser = async (req, res) => {
 			organisation: '',
 			// is_admin: false, // You may set this based on your requirements
 		});
+	
 		res.redirect('/login');
-		// return res.status(201).json({
-		// 	status: 'success',
-		// 	message: 'User created successfully',
-		// 	user: user,
-		// });
 	} catch (error) {
 		console.error(error);
 		res.status(500).send('Internal Server Error');

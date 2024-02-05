@@ -7,7 +7,7 @@ const {
 	comparePasswords,
 } = require('./passwordUtils');
 const generateJWT =
-	require('../controllers/jwtGenVer').generateJWT;
+	require('./jwtGenVer').generateJWT;
 // const getUserById = require('../../controllers/user/getUserById');
 
 // Login endpoint

@@ -113,4 +113,5 @@ module.exports = {
 	createUser,
 	editUserById,
 	deleteUserById,
+	getUserById,
 };

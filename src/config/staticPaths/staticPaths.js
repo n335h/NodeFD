@@ -6,7 +6,7 @@ const staticPaths = express.Router();
 staticPaths.use(
 	'/',
 	express.static(
-		path.join(__dirname, '/app/views')
+		path.join(__dirname, '/src/views')
 	)
 );
 
