@@ -2,12 +2,12 @@ const router = require('express').Router();
 const {
 	verifyJWT,
 } = require('../controllers/auth/jwtGenVer');
-const uploadRouter = require('../router/files/uploadFile');
-const loginRouter = require('../router/auth/login');
-const registerRouter = require('../router/auth/register');
+const uploadRouter = require('./fileRoutes/uploadFile');
+const loginRouter = require('./authRoutes/login');
+const registerRouter = require('./authRoutes/register');
 const dashboardRouter = require('./dashboard');
-const logOutRouter = require('../router/auth/logout');
-const downloadRouter = require('../router/files/downloadFile');
+const logOutRouter = require('./authRoutes/logout');
+const downloadRouter = require('./fileRoutes/downloadFile');
 const userRouter = require('../router/userRoutes');
 // const downloadRouter = require('../controllers/download');
 

@@ -15,13 +15,13 @@ const connectDB = async () => {
 };
 
 //creating bucket
-let bucket;
-mongoose.connection.on('connected', () => {
-	var db = mongoose.connections[0].db;
-	bucket = new mongoose.mongo.GridFSBucket(db, {
-		bucketName: 'singlefiles',
-	});
-	console.log(bucket);
-});
+// let bucket;
+// mongoose.connection.on('connected', () => {
+// 	var db = mongoose.connections[0].db;
+// 	bucket = new mongoose.mongo.GridFSBucket(db, {
+// 		bucketName: 'singlefiles',
+// 	});
+// 	console.log(bucket);
+// });
 
 module.exports = connectDB;

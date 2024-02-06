@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const router = express.Router();
 const User = require('../models/users');
 const {
@@ -8,6 +7,9 @@ const {
 	editUserById,
 	deleteUserById,
 } = require('../controllers/userControllers');
+const {
+	registerUser,
+} = require('../controllers/auth/registration');
 
 // limiting the data pulled from the database
 const projection = {
@@ -17,6 +19,10 @@ const projection = {
 	email: 1,
 	orginisation: 1,
 };
+
+// create a new user
+
+// router.post('/createUser', registerUser);
 
 // get all users
 router.get('/users', async (req, res) => {

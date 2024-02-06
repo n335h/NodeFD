@@ -1,15 +1,8 @@
-// app.js
+
 const http = require('http');
-const express = require('express');
 const appSetup = require('./src/config/appSetup');
 const connectDB = require('./src/config/mongoDb/mongoDb');
-const routes = require('./src/router/routes');
 const morgan = require('morgan');
-
-const {
-	processFiles,
-	removeConsoleLogs,
-} = require('./src/controllers/removeConsoles');
 
 require('dotenv').config();
 

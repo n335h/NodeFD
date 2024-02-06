@@ -7,10 +7,10 @@ const singleFileSchema = new mongoose.Schema({
 	fileType: { type: String, required: true },
 	fileName: { type: String, required: true },
 	uploadDate: { type: Date, default: Date.now },
-	gridFsFileId: {
-		type: mongoose.Types.ObjectId,
-		required: true,
-	},
+	// gridFsFileId: {
+	// 	type: mongoose.Types.ObjectId,
+	// 	required: true,
+	// },
 });
 
 const SingleFile = mongoose.model(
@@ -33,7 +33,21 @@ async function getFiles(userId) {
 	}
 }
 
+// get file by id
+async function getFileById(fileId) {
+	try {
+		const file = await SingleFile.findById(
+			fileId
+		);
+		return file;
+	} catch (error) {
+		console.error('Error fetching file:', error);
+		throw error;
+	}
+}
+
 module.exports = {
 	SingleFile,
 	getFiles,
+	getFileById,
 };

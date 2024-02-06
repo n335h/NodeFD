@@ -13,53 +13,52 @@ router.get(
 	async (req, res) => {
 		try {
 			const fileId = req.params.fileId;
-			console.log(fileId);
+			console.log('fileId:', fileId);
+			const db = mongoose.connection;
 
-			// Create a MongoDB ObjectId
 			const mongooseObjectId = new ObjectId(
 				fileId
 			);
+			console.log(
+				'mongooseObjectId:',
+				mongooseObjectId
+			);
 
-			// Find the file metadata by ObjectId in the singlefiles collection
-			const fileMetadata =
-				await SingleFile.findById(
-					mongooseObjectId
-				);
+			// Retrieve the file metadata from the files.files collection
+			const fileChunks = await db
+				.collection('files.files')
+				.findOne({ filename: mongooseObjectId });
 
-			if (!fileMetadata) {
+			console.log('fileMetadata:', fileChunks);
+
+			if (!fileChunks) {
 				console.error('File not found');
 				return res
 					.status(404)
 					.send('File not found');
 			}
 
-			const db = mongoose.connection;
-
-			// Handle GridFSBucket creation after establishing MongoDB connection
+			// Retrieve the file data chunks from the files.chunks collection
 			const bucket =
 				new mongoose.mongo.GridFSBucket(db, {
-					bucketName: 'singlefiles.files',
+					bucketName: 'files.chunks',
 				});
-
-			// Use the GridFS file ID from the metadata to find the file in the files collection
-			const gridFsFileId = new ObjectId(
-				fileMetadata.gridFsFileId
-			);
-
-			// Create a readable stream for the file
-			const downloadStream =
-				bucket.openDownloadStream(gridFsFileId);
 
 			// Set the appropriate headers
 			res.setHeader(
 				'Content-Type',
-				fileMetadata.fileType
+				fileMetadata.contentType
 			);
 			res.setHeader(
 				'Content-Disposition',
-				`attachment; filename=${fileMetadata.fileName}`
+				`attachment; filename=${fileMetadata.filename}`
 			);
-			// Pipe the file stream to the response
+
+			// Create a readable stream for the file data chunks and pipe it to the response
+			const downloadStream =
+				bucket.openDownloadStream(
+					mongooseObjectId
+				);
 			downloadStream.pipe(res);
 		} catch (error) {
 			console.error('Unexpected error:', error);

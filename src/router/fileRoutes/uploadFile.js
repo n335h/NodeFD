@@ -26,7 +26,6 @@ router.post(
 				fileType: req.file.mimetype,
 				fileName: req.file.originalname,
 				uploadDate: Date.now(),
-				gridFsFileId: undefined,
 			});
 
 			await newFile.save();
@@ -37,7 +36,7 @@ router.post(
 			// Handle GridFSBucket creation after establishing MongoDB connection
 			const bucket =
 				new mongoose.mongo.GridFSBucket(db, {
-					bucketName: 'singlefiles',
+					bucketName: 'files',
 				});
 
 			// Create a readable stream from the buffer of the uploaded file
@@ -45,7 +44,7 @@ router.post(
 			bufferStream.push(req.file.buffer);
 			bufferStream.push(null);
 
-			// Update gridFsFileId property in SingleFile document
+			// Update gridFsFileId property
 			newFile.gridFsFileId =
 				new mongoose.Types.ObjectId(); // Generate a new ObjectId
 			// Save the SingleFile document to MongoDB
@@ -64,9 +63,6 @@ router.post(
 						},
 					}
 				);
-
-			// Save the SingleFile document to MongoDB
-			await newFile.save();
 
 			// Pipe the buffer stream into the upload stream
 			bufferStream.pipe(uploadStream);
